@@ -6,7 +6,7 @@
   <title>Access Check</title>
 </head>
 <body>
-  <div id="accessMessage"></div>
+  <div id="accessMessage">Loading...</div>
 
   <script>
     // Get today's date in the format YYYY-MM-DD
@@ -15,13 +15,18 @@
     // Extract the date from the URL (last part of path)
     const urlDate = window.location.pathname.split('/').pop();
 
-    // Check if the date matches
-    const message = (urlDate === today) 
-      ? "Access allowed" 
-      : "You are not allowed";
+    // Check if there’s no date in the URL (i.e., it’s just the base URL)
+    if (!urlDate || urlDate === "") {
+      document.getElementById('accessMessage').innerText = "Loading...";
+    } else {
+      // Check if the date matches today's date
+      const message = (urlDate === today) 
+        ? "Access allowed" 
+        : "You are not allowed";
 
-    // Display the message
-    document.getElementById('accessMessage').innerText = message;
+      // Display the message
+      document.getElementById('accessMessage').innerText = message;
+    }
   </script>
 </body>
 </html>
