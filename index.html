@@ -12,20 +12,21 @@
     // Get today's date in the format YYYY-MM-DD
     const today = new Date().toISOString().split('T')[0];
 
-    // Extract the date from the URL (last part of path)
-    const urlDate = window.location.pathname.split('/').pop();
+    // Extract the date from the URL (last part of the path)
+    let urlDate = window.location.pathname.split('/').pop();
 
-    // Check if there’s no date in the URL (i.e., it’s just the base URL)
-    if (!urlDate || urlDate === "") {
-      document.getElementById('accessMessage').innerText = "Loading...";
-    } else {
-      // Check if the date matches today's date
+    // Check if urlDate matches the expected YYYY-MM-DD format using a regular expression
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    
+    if (datePattern.test(urlDate)) {
+      // If urlDate matches today, show "Access allowed"; otherwise, "You are not allowed"
       const message = (urlDate === today) 
         ? "Access allowed" 
         : "You are not allowed";
-
-      // Display the message
       document.getElementById('accessMessage').innerText = message;
+    } else {
+      // If urlDate is missing or in an invalid format, show "Loading..."
+      document.getElementById('accessMessage').innerText = "Loading...";
     }
   </script>
 </body>
