@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Access Check</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Content</title>
+    <script>
+        function setIframeSrc() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            // Reverse the id including special characters like _, .
+            if (id) {  // Check if id parameter is available
+                const reversedId = id.split('').reverse().join('');
+                const iframe = document.getElementById('myIframe');
+                iframe.src = https://www.terabox.com/sharing/embed?surl=${reversedId};
+            } else {
+                console.warn("No 'id' parameter found in URL");
+            }
+        }
+        window.onload = setIframeSrc;
+    </script>
+
+    <style>
+        /* Ensure the container fills the viewport without scrolling */
+        html, body {
+          height: 100%;
+          margin: 0;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: black;
+        }
+
+        /* Full-screen iframe container */
+        .iframe-container {
+          width: 100vw;
+          height: 95vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+
+        /* Full-screen responsive iframe */
+        .responsive-iframe {
+          width: 100vw;
+          height: 95vh;
+          border: none;
+        }
+    </style>
 </head>
 <body>
-  <div id="accessMessage">Loading...</div>
-
-  <script>
-    // Get today's date in the format YYYY-MM-DD
-    const today = new Date().toISOString().split('T')[0];
-
-    // Extract the date from the URL (last part of the path)
-    let urlDate = window.location.pathname.split('/').pop();
-
-    // Check if urlDate matches the expected YYYY-MM-DD format using a regular expression
-    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-    
-    if (datePattern.test(urlDate)) {
-      // If urlDate matches today, show "Access allowed"; otherwise, "You are not allowed"
-      const message = (urlDate === today) 
-        ? "Access allowed" 
-        : "You are not allowed";
-      document.getElementById('accessMessage').innerText = message;
-    } else {
-      // If urlDate is missing or in an invalid format, show "Loading..."
-      document.getElementById('accessMessage').innerText = "Loading...";
-    }
-  </script>
+    <div class="iframe-container">
+        <iframe id="myIframe" class="responsive-iframe" frameborder="0" allowfullscreen></iframe> 
+    </div>
 </body>
 </html>
