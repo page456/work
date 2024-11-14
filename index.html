@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Check</title>
+</head>
+<body>
+  <div id="accessMessage"></div>
+
+  <script>
+    // Get today's date in the format YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
+
+    // Extract the date from the URL (last part of path)
+    const urlDate = window.location.pathname.split('/').pop();
+
+    // Check if the date matches
+    const message = (urlDate === today) 
+      ? "Access allowed" 
+      : "You are not allowed";
+
+    // Display the message
+    document.getElementById('accessMessage').innerText = message;
+  </script>
+</body>
+</html>
